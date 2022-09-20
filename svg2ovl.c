@@ -301,17 +301,18 @@ main(int argc, char **argv)
       xmlSaveFile(tmpfile,doc);
       switch (output) {
         case 0:
-          sprintf(cmd,"inkscape --export-pdf='%s' --export-area-drawing --without-gui %s",file,tmpfile);
+          sprintf(cmd,"inkscape -o '%s' --export-area-drawing  %s",file,tmpfile);
           break;
         case 1:
-          sprintf(cmd,"inkscape --export-eps='%s' --export-area-drawing --without-gui %s",file,tmpfile);
+          sprintf(cmd,"inkscape --export-type=eps -o '%s' --export-area-drawing %s",file,tmpfile);
           break;
         case 2:
-          sprintf(cmd,"inkscape --export-png='%s' --export-dpi %d --export-area-drawing --without-gui %s",file,resolution,tmpfile);
+          sprintf(cmd,"inkscape --export-type=png -o '%s' --export-dpi %d --export-area-drawing %s",file,resolution,tmpfile);
           break;
         default:
           error("bad output option (rhis really shouldn't happen)");
       }
+      printf("running '%s'\n",cmd);
       system(cmd);
       unlink(tmpfile);
     }
